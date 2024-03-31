@@ -237,4 +237,8 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
+
+#custom files in this project
 datasets/*.csv
+OAuth.keys
+datasets/data_from_tumblr/*.csv
