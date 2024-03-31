@@ -240,5 +240,5 @@ fabric.properties
 
 #custom files in this project
 datasets/*.csv
-OAuth.keys
+*.keys
 datasets/data_from_tumblr/*.csv
