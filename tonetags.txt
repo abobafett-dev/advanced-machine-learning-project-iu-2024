@@ -1,0 +1,40 @@
+affectionate:affectionate,/a
+copypasta:copypasta,copypaste,repeated text,/c
+clickbait:clickbait,/cb
+fake:fake,/f
+genuine:genuine,/g,/gen
+genuine question:genuine question,/genq
+half joking:half joking,half-joking,half joke,half-joke,halfjoke,/hf
+hyperbole:hyperbole,/hyp
+inside joke:inside joke,insidejoke,insidejoking,inside-joke,inside-joking,/ij
+joking:joking,joke,/j
+lyrics:lyrics,/l,/ly
+light-hearted:light-hearted,light hearted,lighthearted,/lh
+literal:literal,literally,/li
+little upset:little upset,littleupset,little-upset,/lu-a,/lu
+metaphorical:metaphorical,/m
+not a vent:not a vent,notavent,not-a-vent,/nav
+nobody here:nobodyhere,nobody-here,/nbh
+negative connotation:negative connotation,negetiveconnotation,negative-connotation,/neg,/ng
+neutral connotation:neutral connotation,neutralconnotation,neutral-connotation,/neu
+not forced:not forced,not-forced,notforced,/nf
+not mad:not mad,not-mad,notmad,/nm
+not passive aggressive:not passive aggressive,not passive-aggressive,not-passive-aggressive,notpassiveaggressive,/npa
+not subtweeting:not subtweeting,notsubtweeting,/nsb
+non-serious:non-serious,non serious,nonserious,not serious,not-serious,notserious,/nsrs
+non-sexual intent:non-sexual intent,not-sexual intent,non-sexual-intent,nonsexualintent,not-sexual-intent,notsexualintent,/nsx,/nx
+platonic:platonic,/p
+passive aggressive:passive aggressive,passive-aggressive,/pa
+positive connotation:positive connotation,positive-connotation,positiveconnotation,/pos,/pc
+quote:quote,/q
+romantic:romantic,/r
+reference:reference,/ref
+rhetorical:rhetorical,rhetorical question,rhetorical-question,rhetoricalquestion,/rh,/rt
+sarcastic:sarcastic,sarcasm,/s
+serious:serious,/srs
+sexual intent:sexual intent, sexualintent,sexual-intent,/x,/sx
+teasing:teasing,/t
+threat:threat,/th
+ironic:ironic,/iron
+not at you:not at you,not-at-you,notatyou,/nay
+nothing personal:nothing personal,nothing-personal,nothingpersonal,/np
