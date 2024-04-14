@@ -243,5 +243,6 @@ datasets/*.csv
 *.keys
 datasets/data_from_tumblr/*.csv
 datasets/glove/
+notebooks/.vector_cache
 
 notebooks/.vector_cache
