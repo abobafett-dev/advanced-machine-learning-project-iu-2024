@@ -242,3 +242,4 @@ fabric.properties
 datasets/*.csv
 *.keys
 datasets/data_from_tumblr/*.csv
+datasets/glove/
