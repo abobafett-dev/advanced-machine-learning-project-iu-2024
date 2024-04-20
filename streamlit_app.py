@@ -6,7 +6,7 @@ def check_text_tone_tag(text):
 
 
 def main():
-    st.header(f"Check tone tag of your message/text.")
+    st.header(f"Check tone tag of your message/text")
 
     users_text = st.text_area("Write your text here:", height=500, max_chars=500000)
 
