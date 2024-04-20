@@ -8,15 +8,11 @@ def check_text_tone_tag(text):
 def main():
     st.header(f"Check tone tag of your message/text.")
 
-    max_chars = 5000
-
-    users_text = st.text_input("Write your text here:", max_chars=max_chars)
-    remaining_chars = max_chars - len(users_text)
-    st.write(f"Chars left:{remaining_chars}")
+    users_text = st.text_input("Write your text here:", height=200, max_chars=500000)
 
     if st.button("Run it"):
-        tonetag = check_text_tone_tag(users_text)
-        st.write(f"Tone Tag: {tonetag}")
+        tone_tag = check_text_tone_tag(users_text)
+        st.write(f"{tone_tag}")
 
 
 if __name__ == "__main__":
