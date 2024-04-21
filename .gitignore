@@ -244,4 +244,4 @@ datasets/*.csv
 datasets/data_from_tumblr/*.csv
 datasets/glove/
 notebooks/.vector_cache
-results_metrics/*.csv
+results/lstm/
