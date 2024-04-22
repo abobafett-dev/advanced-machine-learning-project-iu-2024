@@ -246,4 +246,4 @@ datasets/glove/
 notebooks/.vector_cache
 results/2024-04-21-lstm/
 results/lstm/
-results/models/
+results/models/*.pt
