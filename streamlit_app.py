@@ -180,9 +180,8 @@ class main:
             except AttributeError:
                 st.session_state.glove_twitter_27B = torchtext.vocab.GloVe(name='twitter.27B', dim=50)
                 vocab = st.session_state.glove_twitter_27B.stoi
-
-        vocab["<unk>"] = len(vocab)
-        vocab["<pad>"] = len(vocab)
+                vocab["<unk>"] = len(vocab)
+                vocab["<pad>"] = len(vocab)
 
         max_length = 4096
 
@@ -240,7 +239,7 @@ class main:
         with st.spinner('Downloading model...'):
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             try:
-                st.session_state.model
+                st.session_state.model.to(device)
             except AttributeError:
                 st.session_state.model = self._load_torch_model(device)
 
@@ -261,10 +260,6 @@ class main:
             tone_tags_probs = dict(zip(labels, probabilities))
             sorted_tone_tags_probs = dict(sorted(tone_tags_probs.items(), key=lambda item: item[1], reverse=True)[:3])
             return sorted_tone_tags_probs
-
-            # tone_tags_probs = {'tag': 0.5, 'tag2': 0.3, 'tag3': 0.1}
-            # return (text_ids, context)
-            # return tone_tags_probs
 
     def _check_text_tone_tags(self, text):
         if text == '':
