@@ -13,6 +13,7 @@ from nltk.corpus import wordnet as wn
 from nltk import word_tokenize
 from nltk.corpus import stopwords
 import pandas as pd
+import builtins
 
 nltk.download('stopwords')
 
@@ -26,7 +27,6 @@ class context_getter:
             self._glove = st.session_state.glove
 
         self._sense_vectors_collection = {}
-
 
     def _load_glove_vectors(self):
         with st.spinner('Loading glove vectors...'):
@@ -269,8 +269,17 @@ class main:
             # preprocess text and get context of it
             with st.spinner('Preprocessing text...'):
                 text_ids_context = self._get_context_preprocess_text_to_ids(text)
-                if text_ids_context is None or pd.isna(text_ids_context[1][0].tolist()):
+
+                if text_ids_context is None:
                     return None
+
+                try:
+                    if pd.isna(text_ids_context[1][0].tolist()).any():
+                        return None
+                except IndexError:
+                    if pd.isna(text_ids_context[1][0].tolist()):
+                        return None
+
                 text_ids, context = text_ids_context
 
             # predict tone tags probabilities
@@ -289,7 +298,6 @@ class main:
                 st.write(tone_tags_probs)
             else:
                 st.error('Error: Text is not correct: Write correct english text.')
-
 
 
 if __name__ == "__main__":
