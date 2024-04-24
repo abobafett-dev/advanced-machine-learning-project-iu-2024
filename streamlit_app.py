@@ -12,6 +12,7 @@ import nltk
 from nltk.corpus import wordnet as wn
 from nltk import word_tokenize
 from nltk.corpus import stopwords
+import pandas as pd
 
 nltk.download('stopwords')
 
@@ -268,7 +269,7 @@ class main:
             # preprocess text and get context of it
             with st.spinner('Preprocessing text...'):
                 text_ids_context = self._get_context_preprocess_text_to_ids(text)
-                if text_ids_context is None:
+                if text_ids_context is None or pd.isna(text_ids_context[1][0].tolist()):
                     return None
                 text_ids, context = text_ids_context
 
@@ -284,8 +285,11 @@ class main:
         users_text = st.text_area("Write your text here:", height=300)
         if st.button("Run it"):
             tone_tags_probs = self._check_text_tone_tags(users_text)
-            if tone_tags_probs is not None or None not in tone_tags_probs:
+            if tone_tags_probs is not None:
                 st.write(tone_tags_probs)
+            else:
+                st.error('Error: Text is not correct: Write correct english text.')
+
 
 
 if __name__ == "__main__":
