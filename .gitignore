@@ -248,3 +248,4 @@ results/2024-04-21-lstm/
 results/lstm/
 results/models/*.pt
 .vector_cache/
+notebooks/check_lstm_results.ipynb
