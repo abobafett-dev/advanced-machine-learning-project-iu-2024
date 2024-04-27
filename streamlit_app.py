@@ -4,6 +4,7 @@ import os
 import torch.nn as nn
 import numpy as np
 import torchtext
+import pyperclip
 from numpy import dot
 from numpy import average
 from numpy.linalg import norm
@@ -22,7 +23,7 @@ class context_getter:
     def __init__(self):
         try:
             self._glove = st.session_state.glove
-        except AttributeError:
+        except Exception:
             st.session_state.glove = self._load_glove_vectors()
             self._glove = st.session_state.glove
 
@@ -178,7 +179,7 @@ class main:
         with st.spinner('Loading glove vocab...'):
             try:
                 vocab = st.session_state.glove_twitter_27B.stoi
-            except AttributeError:
+            except Exception:
                 st.session_state.glove_twitter_27B = torchtext.vocab.GloVe(name='twitter.27B', dim=50)
                 vocab = st.session_state.glove_twitter_27B.stoi
                 vocab["<unk>"] = len(vocab)
@@ -195,7 +196,7 @@ class main:
             for token in text_tokens:
                 try:
                     text_ids.append(vocab[token])
-                except KeyError:
+                except Exception:
                     text_ids.append(vocab["<unk>"])
 
             # add padding ids to correct model work
@@ -208,13 +209,16 @@ class main:
         with st.spinner('Correcting text...'):
             # correct text
             spell = Speller()
-            corrected_text = spell(text)
+            corrected_text = spell(text).lower()
 
         with st.spinner('Removing stopwords...'):
             # remove stopwords with nltk stopwords
             word_tokens = word_tokenize(corrected_text)
             stop_words = set(stopwords.words('english'))
             text_tokens = [w for w in word_tokens if not w in stop_words]
+
+            # st.write('Corrected text:')
+            # st.write('{}'.format(' '.join(text_tokens)))
 
         with st.spinner('Getting context and tokens of text...'):
             # get context vector from text_tokens by glove.twitter.27B.50d
@@ -241,7 +245,7 @@ class main:
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             try:
                 st.session_state.model.to(device)
-            except AttributeError:
+            except Exception:
                 st.session_state.model = self._load_torch_model(device)
 
         with st.spinner('Predicting Tone Tags...'):
@@ -264,11 +268,12 @@ class main:
 
     def _check_text_tone_tags(self, text):
         if text == '':
-            st.error('Error: Empty text: write something')
+            st.error('Error: Empty text.')
         else:
             # preprocess text and get context of it
             with st.spinner('Preprocessing text...'):
                 text_ids_context = self._get_context_preprocess_text_to_ids(text)
+                # st.write(text_ids_context)
 
                 if text_ids_context is None:
                     return None
@@ -276,7 +281,7 @@ class main:
                 try:
                     if pd.isna(text_ids_context[1][0].tolist()).any():
                         return None
-                except IndexError:
+                except Exception:
                     if pd.isna(text_ids_context[1][0].tolist()):
                         return None
 
@@ -290,15 +295,33 @@ class main:
 
     def main(self):
 
+        try:
+            st.session_state.labels_to_tone_tag.keys()
+        except Exception:
+            st.session_state.labels_to_tone_tag = {'genuine question': '/genq', 'half joking': '/hf', 'genuine': '/g, /gen', 'not a vent': '/nav', 'reference': '/ref', 'serious': '/srs', 'platonic': '/p',
+                      'inside joke': '/ij', 'sarcastic': '/s', 'joking': '/j', 'romantic': '/r', 'passive aggressive': '/pa', 'copypasta': '/c', 'ironic': '/iron',
+                      'clickbait': '/cb', 'lyrics': '/l, /ly', 'nothing personal': '/np', 'not mad': '/nm', 'rhetorical': '/rh, /rt'}
+
         st.header(f"Check tone tag of your text")
         users_text = st.text_area("Write your text here:", height=300)
-        if st.button("Run it"):
-            tone_tags_probs = self._check_text_tone_tags(users_text)
-            if tone_tags_probs is not None:
-                st.write(tone_tags_probs)
-            else:
-                st.error('Error: Text is not correct: Write correct english text.')
+        if users_text:
+            st.session_state.users_text = users_text
+            st.session_state.tone_tags_probs = self._check_text_tone_tags(users_text)
 
+        # if st.button("Run it"):
+        #     st.session_state.users_text = users_text
+        #     st.session_state.tone_tags_probs = self._check_text_tone_tags(users_text)
+
+        try:
+            if st.session_state.tone_tags_probs is not None:
+                st.write("Choose your tone tag and click button to copy it to clipboard:")
+                for tone_tag in st.session_state.tone_tags_probs.items():
+                    st.button(f" {round(tone_tag[1] * 100)}% - {tone_tag[0]}")
+                    pyperclip.copy(f"{st.session_state.users_text} {st.session_state.labels_to_tone_tag[tone_tag[0]]}")
+            else:
+                st.error('Error: Write correct english text.')
+        except Exception:
+            pass
 
 if __name__ == "__main__":
     main = main()
