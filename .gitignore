@@ -249,3 +249,4 @@ results/lstm/
 results/models/*.pt
 .vector_cache/
 notebooks/check_lstm_results.ipynb
+notebooks/wandb
