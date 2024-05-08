@@ -15,6 +15,7 @@ from nltk import word_tokenize
 from nltk.corpus import stopwords
 import pandas as pd
 import builtins
+import gc
 
 nltk.download('stopwords')
 
@@ -24,12 +25,12 @@ class context_getter:
         try:
             self._glove = st.session_state.glove
         except Exception:
-            st.session_state.glove = self._load_glove_vectors()
+            st.session_state.glove = self.load_glove_vectors()
             self._glove = st.session_state.glove
 
         self._sense_vectors_collection = {}
 
-    def _load_glove_vectors(self):
+    def load_glove_vectors(self):
         with st.spinner('Loading glove vectors...'):
             torchtext.vocab.GloVe(name='twitter.27B', dim=50)
             glove_file = os.path.join(os.getcwd(), '.vector_cache\\glove.twitter.27B.50d.txt')
@@ -302,11 +303,35 @@ class main:
                       'inside joke': '/ij', 'sarcastic': '/s', 'joking': '/j', 'romantic': '/r', 'passive aggressive': '/pa', 'copypasta': '/c', 'ironic': '/iron',
                       'clickbait': '/cb', 'lyrics': '/l, /ly', 'nothing personal': '/np', 'not mad': '/nm', 'rhetorical': '/rh, /rt'}
 
+        try:
+            self._glove = st.session_state.glove
+
+            del self._glove
+            gc.collect()
+        except Exception:
+            context_getter_instance = context_getter()
+            st.session_state.glove = context_getter_instance.load_glove_vectors()
+            self._glove = st.session_state.glove
+
+            del self._glove
+            del context_getter_instance
+            gc.collect()
+
+
+        with st.spinner('Downloading model...'):
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            try:
+                st.session_state.model.to(device)
+            except Exception:
+                st.session_state.model = self._load_torch_model(device)
+
         st.header(f"Check tone tag of your text")
         users_text = st.text_area("Write your text here:", height=300)
         if users_text:
             st.session_state.users_text = users_text
-            st.session_state.tone_tags_probs = self._check_text_tone_tags(users_text)
+            st.session_state.tone_tags_probs = self._check_text_tone_tags(st.session_state.users_text)
+        else:
+            st.session_state.tone_tags_probs = None
 
         # if st.button("Run it"):
         #     st.session_state.users_text = users_text
@@ -319,7 +344,7 @@ class main:
                     st.button(f" {round(tone_tag[1] * 100)}% - {tone_tag[0]}")
                     pyperclip.copy(f"{st.session_state.users_text} {st.session_state.labels_to_tone_tag[tone_tag[0]]}")
             else:
-                st.error('Error: Write correct english text.')
+                st.error('Error: Write something on english.')
         except Exception:
             pass
 
