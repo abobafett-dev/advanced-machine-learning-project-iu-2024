@@ -189,7 +189,7 @@ class main:
         max_length = 4096
 
         if len(text_tokens) > max_length:
-            st.error('Error: Text is very long: Cut it')
+            st.error('Text is very long: Cut it')
             return None
         else:
             # transform tokens to ids
@@ -344,7 +344,7 @@ class main:
                     st.button(f" {round(tone_tag[1] * 100)}% - {tone_tag[0]}")
                     pyperclip.copy(f"{st.session_state.users_text} {st.session_state.labels_to_tone_tag[tone_tag[0]]}")
             else:
-                st.error('Error: Write something on english.')
+                st.error('Write something on english.')
         except Exception:
             pass
 
