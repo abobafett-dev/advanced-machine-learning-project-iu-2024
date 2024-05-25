@@ -23,23 +23,23 @@ All metrics are presented with weighted and top k 3 parameters.
 
 #### LSTM Accuracy (weighted, top_k=3)
 
-![best LSTM Accuracy weighted top_k 3](.\\docs_and_other_files\\lstm_accuracy_clean_corrected_wsd_2_grove_twitter_27b_50d.png)
+![best LSTM Accuracy weighted top_k 3](docs_and_other_files\\lstm_accuracy_clean_corrected_wsd_2_grove_twitter_27b_50d.png)
 
 #### LSTM Confusion matrix in 11 epoch (weighted, top_k=3)
 
-![best LSTM Confusion matrix in 11 epoch weighted top_k 3](.\\docs_and_other_files\\lstm_confusion_matrix_11_epoch_clean_corrected_wsd_2_grove_twitter_27b_50d.png)
+![best LSTM Confusion matrix in 11 epoch weighted top_k 3](docs_and_other_files\\lstm_confusion_matrix_11_epoch_clean_corrected_wsd_2_grove_twitter_27b_50d.png)
 
 #### LSTM F1 Score (weighted, top_k=3)
 
-![best LSTM F1 Score weighted top_k 3](.\\docs_and_other_files\\lstm_f1_score_clean_corrected_wsd_2_grove_twitter_27b_50d.png)
+![best LSTM F1 Score weighted top_k 3](docs_and_other_files\\lstm_f1_score_clean_corrected_wsd_2_grove_twitter_27b_50d.png)
 
 #### LSTM Precision (weighted, top_k=3)
 
-![best LSTM Precision weighted top_k 3](.\\docs_and_other_files\\lstm_precision_clean_corrected_wsd_2_grove_twitter_27b_50d.png)
+![best LSTM Precision weighted top_k 3](docs_and_other_files\\lstm_precision_clean_corrected_wsd_2_grove_twitter_27b_50d.png)
 
 #### LSTM Recall (weighted, top_k=3)
 
-![best LSTM Recall weighted top_k 3](.\\docs_and_other_files\\lstm_recall_clean_corrected_wsd_2_grove_twitter_27b_50d.png)
+![best LSTM Recall weighted top_k 3](docs_and_other_files\\lstm_recall_clean_corrected_wsd_2_grove_twitter_27b_50d.png)
 
 ## How to try to use model from this repository
 
