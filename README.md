@@ -59,3 +59,7 @@ The archived model is located in the folder:
 ```shell
 python -m streamlit run streamlit_app.py
 ```
+
+## About requirements
+
+The current requirements contain versions of the libraries to run the deployment, but are not tested for use by notebooks. Use the following [guide](https://pytorch.org) to install torch correctly.
