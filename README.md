@@ -10,7 +10,7 @@ archiving was implemented using WinRAR
 
 * [Project presentation](https://docs.google.com/presentation/d/1kJcXnDjRYPxNKGzpxprdzc_KKSjkLR9smEgEMdHbUlY)
 
-* [Project report](.\\docs_and_other_files\\project_report.pdf)
+* [Project report](docs_and_other_files/project_report.pdf)
 
 ### Metrics
 
